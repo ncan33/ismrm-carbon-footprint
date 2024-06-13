@@ -11,15 +11,20 @@ function [optimal_meeting_location, optimal_distance_travelled, actual_cost, ...
     % start stopwatch timer
     tic
     
-    earth_circumference_km = 40075.017; % circumference of earth in km
+    % add util path
+    addpath(genpath('./util'))
+    
+    % initialize
     optimal_meeting_location = initial_location;
     
     actual_cost = []; % accepted cost: costs for accepted updates
     iteration_cost = []; % all costs: costs for every iteration
     
     for i = 1:num_iterations
-        step_size_deg = (earth_circumference_km * rand) / earth_circumference_km * 360;
-        
+        % latitudes are -90 to +90 and longitudes are -180 to +180
+        step_size_lat = rand * 180;
+        step_size_lon = rand * 360;
+
         % Calculate total distance for current meeting location
         current_distance = total_distance_travelled(optimal_meeting_location, coordinates);
 
@@ -34,7 +39,7 @@ function [optimal_meeting_location, optimal_distance_travelled, actual_cost, ...
         direction_vector_normalized = direction_vector / norm(direction_vector);
         
         % Update meeting location by moving a fixed distance step in the direction
-        possibly_optimal_meeting_location = optimal_meeting_location + step_size_deg * direction_vector_normalized;
+        possibly_optimal_meeting_location = optimal_meeting_location + [step_size_lat, step_size_lon] .* direction_vector_normalized;
         
         % Calculate new total distance
         new_distance = total_distance_travelled(possibly_optimal_meeting_location, coordinates);

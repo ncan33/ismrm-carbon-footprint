@@ -6,12 +6,15 @@ function total_distance = total_distance_travelled(meeting_location, coordinates
 % coordinates is a Nx1 cell. Each element of this cell is a 1x2 vector
 % corresponding to the coordinates of each first author from a set of N
 % first authors. meeting_location is a 1x2 coordinate vector
-
+    
     arguments
         meeting_location = [34.040, -118.269] % coordinates of the Los Angeles Convention Center
         coordinates = {[0, 0]; [50, 50]} % if ISMRM had N = 2 attendees
     end
-
+    
+    % add util path
+    addpath(genpath('./util'))
+    
     total_distance = 0;
     
     for i = 1:length(coordinates)

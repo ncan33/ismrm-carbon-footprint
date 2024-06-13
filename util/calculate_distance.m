@@ -17,7 +17,7 @@ function distance = calculate_distance(coord1, coord2)
     lon1 = coord1(2);
     lat2 = coord2(1);
     lon2 = coord2(2);
-
+    
     distance = 2 * asin(sqrt(sin((lat2 - lat1) / 2)^2 + cos(lat1) * cos(lat2) * sin((lon2 - lon1) / 2)^2)); % normalized distance
     distance = earthRadius * distance * 10^-3; % distance in kilometers
     
